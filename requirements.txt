@@ -16,4 +16,4 @@ PyJWT==2.10.1
 greenlet==3.2.4
 typing-extensions==4.15.0
 
-requests==2.32.3
+resend==2.5.1
