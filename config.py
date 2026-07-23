@@ -67,6 +67,8 @@ SMTP_USER = os.getenv("SMTP_USER", "nverrma123@gmail.com")
 SMTP_PASS = os.getenv("SMTP_PASS", "xrksxzwpeperpgue")
 NOTIFY_EMAIL = os.getenv("NOTIFY_EMAIL", "nverrma123@gmail.com")
 
+RESEND_API_KEY = os.getenv("RESEND_API_KEY", "re_G87YyVsR_DmYK2wdRgvBQGU4an3M5TxYM")
+
 
 # TWILIO_SID = os.getenv("ACa3bc4b2c803385dafd623f8fdb8864f2")
 # TWILIO_AUTH_TOKEN = os.getenv("410c210d06fa70e4d13d7c6852359e5c")
@@ -79,4 +81,4 @@ NOTIFY_EMAIL = os.getenv("NOTIFY_EMAIL", "nverrma123@gmail.com")
 # -----------------------------
 CONTACT_RATE_LIMIT_PER_HOUR = int(os.getenv("CONTACT_RATE_LIMIT_PER_HOUR", "5"))
 
-RESEND_API_KEY = os.getenv("RESEND_API_KEY", "re_G87YyVsR_DmYK2wdRgvBQGU4an3M5TxYM")
+
