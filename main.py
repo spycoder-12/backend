@@ -479,3 +479,7 @@ def delete_contact(
         "success": True,
         "message": "Contact deleted successfully",
     }
+
+@app.get("/")
+def read_root():
+    return {"message": "API is running"}
