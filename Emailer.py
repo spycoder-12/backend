@@ -1,5 +1,5 @@
 import logging
-import requests
+import resend
 
 import config
 
@@ -11,27 +11,22 @@ def send_contact_notification(name: str, email: str, message: str, event_date: s
         logger.info("Email not configured — skipping notification for %s", email)
         return
 
-    body = (
-        f"New inquiry from the portfolio site.\n\n"
-        f"Name: {name}\n"
-        f"Email: {email}\n"
-        f"Event date: {event_date or 'Not specified'}\n\n"
-        f"Message:\n{message}\n"
+    resend.api_key = config.RESEND_API_KEY
+
+    body_html = (
+        f"<p><strong>Name:</strong> {name}</p>"
+        f"<p><strong>Email:</strong> {email}</p>"
+        f"<p><strong>Event date:</strong> {event_date or 'Not specified'}</p>"
+        f"<p><strong>Message:</strong><br>{message}</p>"
     )
 
     try:
-        response = requests.post(
-            "https://api.resend.com/emails",
-            headers={"Authorization": f"Bearer {config.RESEND_API_KEY}"},
-            json={
-                "from": "onboarding@resend.dev",
-                "to": [config.NOTIFY_EMAIL],
-                "subject": f"New portfolio inquiry from {name}",
-                "text": body,
-            },
-            timeout=10,
-        )
-        response.raise_for_status()
+        resend.Emails.send({
+            "from": "onboarding@resend.dev",
+            "to": config.NOTIFY_EMAIL,
+            "subject": f"New portfolio inquiry from {name}",
+            "html": body_html,
+        })
         logger.info("Contact notification email sent for %s", email)
 
     except Exception:
