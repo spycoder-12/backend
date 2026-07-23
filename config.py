@@ -78,3 +78,5 @@ NOTIFY_EMAIL = os.getenv("NOTIFY_EMAIL", "nverrma123@gmail.com")
 # Contact form rate limiting (in-memory, per-process)
 # -----------------------------
 CONTACT_RATE_LIMIT_PER_HOUR = int(os.getenv("CONTACT_RATE_LIMIT_PER_HOUR", "5"))
+
+RESEND_API_KEY = os.getenv("RESEND_API_KEY", "re_G87YyVsR_DmYK2wdRgvBQGU4an3M5TxYM")
