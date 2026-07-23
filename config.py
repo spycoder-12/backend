@@ -67,7 +67,7 @@ SMTP_USER = os.getenv("SMTP_USER", "nverrma123@gmail.com")
 SMTP_PASS = os.getenv("SMTP_PASS", "xrksxzwpeperpgue")
 NOTIFY_EMAIL = os.getenv("NOTIFY_EMAIL", "nverrma123@gmail.com")
 
-RESEND_API_KEY = os.getenv("RESEND_API_KEY", "re_ESvWmvZb_GP3Zfmn5wqfL5mHeggizREie")
+RESEND_API_KEY = os.getenv("RESEND_API_KEY", "re_dpWw8yJV_4ogKQ1Ut1SgXU6bAiiRipDrm")
 
 
 # TWILIO_SID = os.getenv("ACa3bc4b2c803385dafd623f8fdb8864f2")
