@@ -58,27 +58,24 @@ CORS_ORIGINS = [
 ]
 
 # -----------------------------
-# Email (optional — if SMTP_HOST is unset, contact form still saves to DB,
-# it just skips sending a notification email)
+# Email (Gmail SMTP) — optional. If SMTP_HOST/SMTP_USER is unset, contact
+# form still saves to DB, it just skips sending a notification email.
 # -----------------------------
 SMTP_HOST = os.getenv("SMTP_HOST", "smtp.gmail.com")
 SMTP_PORT = int(os.getenv("SMTP_PORT", "587"))
-SMTP_USER = os.getenv("SMTP_USER", "nverrma123@gmail.com")
-SMTP_PASS = os.getenv("SMTP_PASS", "xrksxzwpeperpgue")
-NOTIFY_EMAIL = os.getenv("NOTIFY_EMAIL", "nverrma123@gmail.com")
+SMTP_USER = os.getenv("SMTP_USER")
+SMTP_PASS = os.getenv("SMTP_PASS")
+NOTIFY_EMAIL = os.getenv("NOTIFY_EMAIL")
 
-RESEND_API_KEY = os.getenv("RESEND_API_KEY", "re_A4pbkddM_PrChJhoMXybyk8Nq2UqHvHGw")
-
-
-# TWILIO_SID = os.getenv("ACa3bc4b2c803385dafd623f8fdb8864f2")
-# TWILIO_AUTH_TOKEN = os.getenv("410c210d06fa70e4d13d7c6852359e5c")
-# TWILIO_WHATSAPP_FROM = os.getenv("+14155238886")
-# YOUR_WHATSAPP_NUMBER = os.getenv("9005154244")
-
+# -----------------------------
+# WhatsApp notifications (Twilio) — optional, same pattern as email.
+# -----------------------------
+TWILIO_SID = os.getenv("TWILIO_SID")
+TWILIO_AUTH_TOKEN = os.getenv("TWILIO_AUTH_TOKEN")
+TWILIO_WHATSAPP_FROM = os.getenv("TWILIO_WHATSAPP_FROM")
+YOUR_WHATSAPP_NUMBER = os.getenv("YOUR_WHATSAPP_NUMBER")
 
 # -----------------------------
 # Contact form rate limiting (in-memory, per-process)
 # -----------------------------
 CONTACT_RATE_LIMIT_PER_HOUR = int(os.getenv("CONTACT_RATE_LIMIT_PER_HOUR", "5"))
-
-
