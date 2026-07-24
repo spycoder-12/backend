@@ -1,5 +1,6 @@
+import smtplib
 import logging
-import resend
+from email.mime.text import MIMEText
 
 import config
 
@@ -7,26 +8,33 @@ logger = logging.getLogger("portfolio.email")
 
 
 def send_contact_notification(name: str, email: str, message: str, event_date: str | None):
-    if not config.RESEND_API_KEY or not config.NOTIFY_EMAIL:
+    if not config.SMTP_HOST or not config.SMTP_USER or not config.NOTIFY_EMAIL:
         logger.info("Email not configured — skipping notification for %s", email)
         return
 
-    resend.api_key = config.RESEND_API_KEY
-
-    body_html = (
-        f"<p><strong>Name:</strong> {name}</p>"
-        f"<p><strong>Email:</strong> {email}</p>"
-        f"<p><strong>Event date:</strong> {event_date or 'Not specified'}</p>"
-        f"<p><strong>Message:</strong><br>{message}</p>"
+    body = (
+        f"New inquiry from the portfolio site.\n\n"
+        f"Name: {name}\n"
+        f"Email: {email}\n"
+        f"Event date: {event_date or 'Not specified'}\n\n"
+        f"Message:\n{message}\n"
     )
 
+    msg = MIMEText(body)
+    msg["Subject"] = f"New portfolio inquiry from {name}"
+    msg["From"] = config.SMTP_USER
+    msg["To"] = config.NOTIFY_EMAIL
+
     try:
-        resend.Emails.send({
-            "from": "onboarding@resend.dev",
-            "to": config.NOTIFY_EMAIL,
-            "subject": f"New portfolio inquiry from {name}",
-            "html": body_html,
-        })
+        with smtplib.SMTP(config.SMTP_HOST, config.SMTP_PORT, timeout=10) as server:
+            server.starttls()
+            server.login(config.SMTP_USER, config.SMTP_PASS)
+            server.sendmail(
+                msg["From"],
+                [config.NOTIFY_EMAIL],
+                msg.as_string(),
+            )
+
         logger.info("Contact notification email sent for %s", email)
 
     except Exception:
